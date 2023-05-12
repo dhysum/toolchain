@@ -1,0 +1,111 @@
+
+" The main entry of the vimrc file.
+"
+" Maintainer:	Xianming Dou 
+"
+"
+
+" Searching
+set incsearch
+set ignorecase
+set smartcase
+
+filetype plugin on
+filetype indent on
+
+" swp files are annoying. Let's hope vim doesn't crash
+set nobackup
+set nowritebackup
+set noswapfile
+
+set nu
+set ai
+set showmatch
+set ruler			" show the cursor position all the time
+set showcmd			" display incomplete commands
+set nobackup
+set tabstop=4
+set expandtab
+set list listchars=tab:\ \ ,trail:·
+set cc=80
+set shiftwidth=4
+set history=200		" keep 200 lines of command line history
+set laststatus=2	" Show filename on the bottom
+set noswapfile
+set nowb
+set smartindent
+set wrap
+set noerrorbells
+set novisualbell
+set nocompatible	" Don't be compatible to vi
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+set foldmethod=manual
+set foldlevel=99
+
+" press space to fold/unfold code
+nnoremap <space> za
+vnoremap <space> zf
+
+" Ignore the case when searching...
+set ic
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcEx
+  au!
+
+  " For all text files set 'textwidth' to 78 characters.
+  autocmd FileType text setlocal textwidth=78
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  " Also don't do it when the mark is in the first line, that is the default
+  " position when opening a file.
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+  augroup END
+
+else
+
+endif " has("autocmd")
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
+
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+source ~/.vim/vimrc_d/plugin.vim
+
+" All of your Plugins must be added before the following line
+call vundle#end()      "required
+
+source ~/.vim/vimrc_d/c.vim
+source ~/.vim/vimrc_d/coc.vim
+source ~/.vim/vimrc_d/theme.vim
+"source ~/.vim/vimrc_d/youcompleteme.vim
+
