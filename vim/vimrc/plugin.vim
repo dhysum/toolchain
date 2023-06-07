@@ -1,11 +1,11 @@
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'scrooloose/nerdtree'
+Plugin 'git@github.com:preservim/nerdtree.git'
 
-Plugin 'fatih/vim-go'
-Plugin 'preservim/tagbar'
-Plugin 'vim-gocode'
-Plugin 'tpope/vim-pathogen'
+Plugin 'git@github.com:fatih/vim-go.git'
+Plugin 'git@github.com:preservim/tagbar.git'
+Plugin 'blackrush/vim-gocode'
+Plugin 'git@github.com:tpope/vim-pathogen.git'
 
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+Plugin 'git@github.com:neoclide/coc.nvim.git', {'branch': 'release'}
